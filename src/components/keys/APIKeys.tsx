@@ -13,7 +13,7 @@ const APIKeys: React.FC = () => {
     { src: googleDrive, alt: "Google Drive", size: "3.5vh" },
   ];
 
-  return <IconLabelContainer label="API Keys" icons={icons} height="6vh" />;
+  return <IconLabelContainer label="Claves API" icons={icons} height="6vh" />;
 };
 
 export default APIKeys;

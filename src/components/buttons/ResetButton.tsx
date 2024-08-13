@@ -6,13 +6,13 @@ const ResetWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #F2F6F8;
   padding: 0.7vh 2vw;
   border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border: 1px solid #ddd;
   cursor: pointer;
-  color: #333;
+  color: #24313D;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   
   &:hover {
@@ -25,7 +25,7 @@ const ResetWrapper = styled.div`
 const ResetButton: React.FC = () => (
   <ResetWrapper onClick={() => alert('Reset clicked')}>
     <ReplayIcon style={{ color: '#333' }} /> 
-    <span style={{ marginLeft: '8px', color: '#333' }}>Reset</span>
+    <span style={{ marginLeft: '8px', color: '#333' }}>Refrescar</span>
   </ResetWrapper>
 );
 

@@ -7,7 +7,7 @@ const OutputAPIKeys: React.FC = () => {
     { src: settings, alt: "Settings", size: "4vh" },
   ];
 
-  return <IconLabelContainer label="Output API Keys" icons={icons} height="6vh" />;
+  return <IconLabelContainer label="Claves de API de salida" icons={icons} height="6vh" />;
 };
 
 export default OutputAPIKeys;

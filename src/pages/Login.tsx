@@ -9,13 +9,12 @@ const MainWrapper = styled.div`
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(180deg, rgba(238,242,255,1) 0%, rgba(218,229,252,1) 100%);
   padding: 2%;
   box-sizing: border-box;
 `;
 
 const FormContainer = styled.div`
-  background: #fff;
+  background: #F2F6F8;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -27,7 +26,7 @@ const FormContainer = styled.div`
 const Title = styled.h1`
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #24313D;
 `;
 
 const Input = styled.input`
@@ -43,17 +42,17 @@ const Input = styled.input`
 const Button = styled.button`
   width: calc(100% - 1.5rem);
   padding: 0.75rem;
-  background-color: #007bff;
+  background-color: #204e5b; /* Color de fondo del botón basado en la paleta */
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: #e0f4f4; /* Color del texto del botón, blanco suave que contrasta */
   font-size: 1.1rem;
   cursor: pointer;
   margin-top: 1rem;
   box-sizing: border-box;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #123a47; /* Color de fondo en hover, un tono más oscuro */
   }
 `;
 

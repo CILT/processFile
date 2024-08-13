@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@mui/material';
 import { askChatGPT } from '../../services/ChatGPTService';
 import { ProcessButtonType } from '../../types';
-
 import processFile from '../../assets/images/processFile.png'; 
+import { AlertContext } from '../../context/AlertContext'; // Asegúrate de que el path sea correcto
 
 const ProcessWrapper = styled.div`
   display: flex;
@@ -36,18 +36,31 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
-const ProcessButton: React.FC<ProcessButtonType> = ({ filesSelected }) => (
-  <ProcessWrapper>
-    <StyledIconButton 
-      onClick={async () => await askChatGPT(filesSelected)}
-    >
-      <img 
-        src={processFile} 
-        alt="Process File Icon" 
-      />
-    </StyledIconButton>
-    <div style={{ paddingTop: '2.5vh', color: '#666' }}><p style={{ margin: '5px 0', fontSize: '3vh', color: '#888' }}>Procesar Archivos</p></div>
-  </ProcessWrapper>
-);
+const ProcessButton: React.FC<ProcessButtonType> = ({ filesSelected, setDownloadStatus }) => {
+  const { showAlert } = useContext(AlertContext)!;
+
+  const handleClick = async () => {
+    try {
+      setDownloadStatus('Procesando...')
+      const response = await askChatGPT(filesSelected);
+      showAlert('Todos los archivos fueron procesados correctamente.', 'success');
+      setDownloadStatus('Listo para descargar');
+    } catch (error) {
+      showAlert('No se pudieron procesar los archivos.', 'error');
+      setDownloadStatus('Pendiente de procesamiento');
+    }
+  };
+
+  return (
+    <ProcessWrapper>
+      <StyledIconButton onClick={handleClick}>
+        <img src={processFile} alt="Process File Icon" />
+      </StyledIconButton>
+      <div style={{ paddingTop: '3vh' }}>
+        <p style={{ margin: '5px 0', fontSize: '3vh', color: '#F1F1F1' }}>Procesar Archivos</p>
+      </div>
+    </ProcessWrapper>
+  );
+};
 
 export default ProcessButton;

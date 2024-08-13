@@ -26,7 +26,7 @@ const LogoutButton: React.FC = () => {
 
   return (
     <LogoutButtonStyle onClick={handleLogout}>
-      <LogoutIcon style={{ width: "4vh", height: "4vh" }} />
+      <LogoutIcon style={{ width: "4vh", height: "4vh", color: '#F1F1F1' }} />
     </LogoutButtonStyle>
   );
 };

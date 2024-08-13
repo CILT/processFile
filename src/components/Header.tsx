@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   return (
     <HeaderWrapper>
       <UserInfo>
-      <p style={{ marginRight: '3vh', fontSize: '3vh', color: '#888' }}>Usuario Admin</p>
+      <p style={{ marginRight: '3vh', fontSize: '3vh', color: '#F1F1F1' }}>Usuario Admin</p>
         <LogoutButton/>
       </UserInfo>
     </HeaderWrapper>

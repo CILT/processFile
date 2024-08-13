@@ -6,7 +6,7 @@ import { FilesUploaded } from '../types';
 
 const StyledButton = styled.button`
   margin-top: 10vh;
-  background: white;
+  background: #F2F6F8;
   border-radius: 50px;
   padding: 1vh 2vw;
   cursor: pointer;
@@ -16,7 +16,7 @@ const StyledButton = styled.button`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   font-size: 2.5vh;
   font-family: 'Poppins';
-  color: #333;
+  color: #24313D;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   
   &:hover {

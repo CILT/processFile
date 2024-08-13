@@ -8,5 +8,6 @@ export interface FileUploadType {
 }
 
 export interface ProcessButtonType {
-  filesSelected: FilesUploaded[], 
+  filesSelected: FilesUploaded[],
+  setDownloadStatus: React.Dispatch<React.SetStateAction<string>>;
 }

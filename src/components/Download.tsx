@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const StatusText = styled.p`
   margin: 5px 0;
   font-size: 1.9vh;
-  color: #888;
+  color: #24313D;
 `;
 
 const Download: React.FC<{ downloadStatus: string }> = ({ downloadStatus }) => (
