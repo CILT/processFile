@@ -23,7 +23,7 @@ export const PopupContainer = styled.div`
   max-width: 400px;
   z-index: 1000;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   overflow: auto;
 `;
 

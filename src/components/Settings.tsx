@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   font-size: 2.5vh;
-  font-family: 'Poppins';
+  font-family: 'Open Sans', sans-serif;
   color: #24313D;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   
