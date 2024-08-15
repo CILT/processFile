@@ -1,11 +1,11 @@
 import React, { useState, ChangeEvent, useContext } from 'react';
 import { IconButton } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
-import { uploadFiles } from '../services/ChatGPTService';
 import { FileUploadType } from '../types';
 import { Card } from '../styles/components/Card';
 import styled from 'styled-components';
-import { AlertContext } from '../context/AlertContext';
+import { AlertContext } from '../utils/context/AlertContext';
+import { uploadFiles } from '../services/FileService';
 
 const HiddenInput = styled.input`
   display: none;

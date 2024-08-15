@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
   const [files, setFiles] = useState<FilesUploaded[]>([]);
   const [filesSelected, setFilesSelected] = useState<FilesUploaded[]>([]);
   const [downloadStatus, setDownloadStatus] = useState<string>('Pendiente de procesamiento');
-
+  const [fileName, setFileName] = useState<string>(''); 
   useEffect(() => {
     console.log(files);
   }, [files]);
@@ -33,12 +33,12 @@ const Dashboard: React.FC = () => {
             <FileUpload setFiles={setFiles} />
           </LargeButton>
           <CentralButton>
-            <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus}/>
+            <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus} setFileName={setFileName}/>
           </CentralButton>
           <LargeButton>
             <OutputAPIKeys />
             <SpacedContainer />
-            <Download downloadStatus={downloadStatus} />
+            <Download downloadStatus={downloadStatus} fileName={fileName} />
           </LargeButton>
         </MiddleRow>
         <Settings 

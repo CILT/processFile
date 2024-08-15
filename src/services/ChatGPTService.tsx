@@ -1,48 +1,31 @@
 import OpenAI from "openai";
 import { FilesUploaded } from '../types';
+import { awaitForThredAndAnalyzeQuery, extractName } from "../utils/utils";
 
 const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    organization: process.env.REACT_APP_OPENAI_ORG_ID,
-    dangerouslyAllowBrowser: true 
+    dangerouslyAllowBrowser: true,
 });
 
-export const askChatGPT = async (filesSelected: FilesUploaded[]) => {
-    console.log(filesSelected);
-    const response = await openai.chat.completions.create({
-        messages: [{ role: "system", content: "¿Cuál es la capital de Francia?" }],
-        model: "gpt-4o-mini",
-    });
-    // const response = {
-    //     "id": "chatcmpl-abc123",
-    //     "object": "chat.completion",
-    //     "created": 1677858242,
-    //     "model": "gpt-4o-mini",
-    //     "usage": {
-    //         "prompt_tokens": 13,
-    //         "completion_tokens": 7,
-    //         "total_tokens": 20
-    //     },
-    //     "choices": [
-    //         {
-    //             "message": {
-    //                 "role": "assistant",
-    //                 "content": "\n\nThis is a test!"
-    //             },
-    //             "logprobs": null,
-    //             "finish_reason": "stop",
-    //             "index": 0
-    //         }
-    //     ]
-    // }
-    console.log({response});
-    return response;
-};
+export const askChatGPT = async (filesSelected: FilesUploaded[]): Promise<string> => {
+  const assistantId = "asst_BsOZ20e8aybHedRgNrf5JHHz";
+  const storageId="vs_vca3UzfMAwkNw44hdr67Y6lA";
+  const thread = await openai.beta.threads.create();
+  const attachments: any = []
 
-export const uploadFiles = async (fileBuffer: any) => {
-    const file = await openai.files.create({
-        file: fileBuffer,
-        purpose: 'assistants',
-      });
-    return {fileId: file.id, fileName: file.filename};
+  filesSelected.forEach(file => attachments.push({
+    file_id: file.fileId,
+    tools: [{ type: "file_search" }],
+  }))
+
+  const message = await openai.beta.threads.messages.create(
+    thread.id,
+    {
+      role: "user",
+      content: "Necesito que me proceses el/los archivos que adjunte",
+      attachments: attachments,
+    }
+  );
+
+  return awaitForThredAndAnalyzeQuery(thread.id, assistantId, openai);
 };

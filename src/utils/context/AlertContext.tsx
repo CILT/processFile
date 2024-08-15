@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import Alert from '../components/common/Alert';
+import Alert from '../../components/common/Alert';
 
 type AlertContextType = {
   showAlert: (message: string, type: 'success' | 'error') => void;

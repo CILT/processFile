@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import ProtectedRoute from './routes/ProtectedRoute';
-import { AlertProvider } from './context/AlertContext';
+import { AlertProvider } from './utils/context/AlertContext';
 
 const App: React.FC = () => {
   return (
