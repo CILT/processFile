@@ -45,7 +45,7 @@ export const awaitForThredAndAnalyzeQuery =(threadId: string, assistantId:string
             console.log("Processing complete.");
             console.log("Final text:", finalText);
             
-            const queryResult = await analyzeAndQuery(finalText, openai);
+            const queryResult = await analyzeAndQuery(finalText, openai, threadId, assistantId);
 
             resolve(queryResult);
           })
@@ -56,14 +56,15 @@ export const awaitForThredAndAnalyzeQuery =(threadId: string, assistantId:string
       });
 }
 
-export async function analyzeAndQuery(text: string, openai: OpenAI): Promise<string> {
+export async function analyzeAndQuery(text: string, openai: OpenAI, threadId: string, assistantId: string): Promise<string> {
     if (text.includes("¿Desea continuar subiendo más archivos o procederemos con el análisis de los documentos proporcionados?")) {
       console.log("El texto indica que se deben subir más archivos.");
-      return await confirmFiles(openai);
-    } else if (text.includes("Podrías intentar subir el archivo otra vez, por favor?")) {
-      console.log("El texto indica que el análisis está completo.");
-    } else if (text.includes("Puedes descargarlo utilizando el siguiente enlace:")){
+      return await confirm(openai, "Son todos los archivos, procesamelo", threadId, assistantId);
+    } else if (text.includes("sandbox:/mnt/data")){
       return extractName(text);
+    } else if (text.includes("Voy a empezar a examinar los archivos")) {
+      console.log("El texto indica que el análisis está por realizarse.");
+      return await confirm(openai, "Ok, espero el excel.", threadId, assistantId);
     } else {
       console.log("Texto no reconocido, tomando acción predeterminada.");
     }
@@ -71,17 +72,14 @@ export async function analyzeAndQuery(text: string, openai: OpenAI): Promise<str
     return "";
   }
 
-export const confirmFiles = async (openai: OpenAI): Promise<string> => {
-  const assistantId = "asst_BsOZ20e8aybHedRgNrf5JHHz";
-  const storageId = "vs_vca3UzfMAwkNw44hdr67Y6lA";
-  const thread = await openai.beta.threads.create();
+export const confirm = async (openai: OpenAI, messageContent: string, threadId: string, assistantId: string): Promise<string> => {
   const message = await openai.beta.threads.messages.create(
-    thread.id,
+    threadId,
     {
       role: "user",
-      content: "Son todos los archivos, procesamelo",
+      content: messageContent,
     }
   );
 
-  return awaitForThredAndAnalyzeQuery(thread.id, assistantId, openai);
+  return awaitForThredAndAnalyzeQuery(threadId, assistantId, openai);
 };

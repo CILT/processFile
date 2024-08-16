@@ -6,15 +6,13 @@ const openai = new OpenAI({
 });
 
 export const uploadFiles = async (fileBuffer: any) => {
+    const isImage = fileBuffer.type === "image/png" || fileBuffer.type === "image/jpeg";
     const file = await openai.files.create({
         file: fileBuffer,
-        purpose: 'assistants',
+        purpose: isImage ? 'vision' : 'assistants',
       });
-      console.log({file});
-      await openai.beta.vectorStores.files.create("vs_vca3UzfMAwkNw44hdr67Y6lA", {
-        file_id: file.id,
-      });
-    return {fileId: file.id, fileName: file.filename};
+      
+    return {fileId: file.id, fileName: file.filename, type: fileBuffer.type};
 };
 
 export const getFiles = async () => {

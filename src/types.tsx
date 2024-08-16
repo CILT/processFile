@@ -1,6 +1,7 @@
 export interface FilesUploaded {
     fileName: string,
-    fileId: string
+    fileId: string,
+    type: string,
   }
 
 export interface FileUploadType {
