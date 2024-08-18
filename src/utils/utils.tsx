@@ -45,7 +45,7 @@ export const awaitForThredAndAnalyzeQuery =(threadId: string, assistantId:string
             console.log("Processing complete.");
             console.log("Final text:", finalText);
             
-            const queryResult = await analyzeAndQuery(finalText, openai, threadId, assistantId);
+            const queryResult = await analyzeAndQuery(finalText);
 
             resolve(queryResult);
           })
@@ -56,30 +56,9 @@ export const awaitForThredAndAnalyzeQuery =(threadId: string, assistantId:string
       });
 }
 
-export async function analyzeAndQuery(text: string, openai: OpenAI, threadId: string, assistantId: string): Promise<string> {
-    if (text.includes("¿Desea continuar subiendo más archivos o procederemos con el análisis de los documentos proporcionados?")) {
-      console.log("El texto indica que se deben subir más archivos.");
-      return await confirm(openai, "Son todos los archivos, procesamelo", threadId, assistantId);
-    } else if (text.includes("sandbox:/mnt/data")){
-      return extractName(text);
-    } else if (text.includes("Voy a empezar a examinar los archivos")) {
-      console.log("El texto indica que el análisis está por realizarse.");
-      return await confirm(openai, "Ok, espero el excel.", threadId, assistantId);
-    } else {
-      console.log("Texto no reconocido, tomando acción predeterminada.");
-    }
-  
-    return "";
-  }
+export async function analyzeAndQuery(text: string): Promise<string> {
+  if (text.includes("sandbox:/mnt/data"))
+    return extractName(text);
 
-export const confirm = async (openai: OpenAI, messageContent: string, threadId: string, assistantId: string): Promise<string> => {
-  const message = await openai.beta.threads.messages.create(
-    threadId,
-    {
-      role: "user",
-      content: messageContent,
-    }
-  );
-
-  return awaitForThredAndAnalyzeQuery(threadId, assistantId, openai);
-};
+  return "";
+}

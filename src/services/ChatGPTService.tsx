@@ -9,30 +9,26 @@ const openai = new OpenAI({
 
 export const askChatGPT = async (filesSelected: FilesUploaded[]): Promise<string> => {
   const assistantId = process.env.REACT_APP_OPENAI_ASSISTANT_ID ? process.env.REACT_APP_OPENAI_ASSISTANT_ID : "";
-  const threadId = process.env.REACT_APP_OPENAI_THREAD_ID ? process.env.REACT_APP_OPENAI_THREAD_ID : "";
+  let threadId = process.env.REACT_APP_OPENAI_THREAD_ID ? process.env.REACT_APP_OPENAI_THREAD_ID : "";
   const attachments: any = []
-  const content: any[] = [{type: "text", text: "Necesito que me proceses los archivos que subi y que adjunte. Devolveme el excel generado"}]
 
   filesSelected.forEach(file => {
-    const isImage = file.type === "image/png" || file.type === "image/jpeg";
-    if (isImage) {
-      content.push({
-        type: "image_file",
-        image_file: {file_id: file.fileId}
-      },)
-    } else {
       attachments.push({
         file_id: file.fileId,
         tools: [{ type: "code_interpreter" }],
-      })    
-    }
-})
+      })
+  })
+
+  if (threadId === ""){
+    const thread = await openai.beta.threads.create();
+    threadId = thread.id;
+  }
 
   const message = await openai.beta.threads.messages.create(
     threadId,
     {
       role: "user",
-      content: content,
+      content: "Procesame los archivos que adjunte",
       attachments: attachments,
     }
   );

@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
   const [downloadStatus, setDownloadStatus] = useState<string>('Pendiente de procesamiento');
   const [fileName, setFileName] = useState<string>(''); 
   useEffect(() => {
-    console.log(files);
+    setFilesSelected(files);
   }, [files]);
 
   return (
