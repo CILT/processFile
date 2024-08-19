@@ -22,7 +22,7 @@ const FileTypeText = styled.small`
   color: #24313D;
 `;
 
-const FileUpload: React.FC<FileUploadType> = ({ setFiles }) => {
+const FileUpload: React.FC<FileUploadType> = ({ setFiles, files }) => {
   const [fileCount, setFileCount] = useState<number>(0);
   const { showAlert } = useContext(AlertContext)!;
 
@@ -56,7 +56,7 @@ const FileUpload: React.FC<FileUploadType> = ({ setFiles }) => {
       <div>
         <h3>Subir Archivos</h3>
         <FileCountText>
-          {fileCount} Documento{fileCount !== 1 ? 's' : ''} listo{fileCount !== 1 ? 's' : ''}
+          {files.length} Documento{files.length !== 1 ? 's' : ''} listo{files.length !== 1 ? 's' : ''}
         </FileCountText>
         <FileTypeText>PDF, JPEG, PNG</FileTypeText>
       </div>

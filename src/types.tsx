@@ -6,6 +6,7 @@ export interface FilesUploaded {
 
 export interface FileUploadType {
     setFiles: React.Dispatch<React.SetStateAction<FilesUploaded[]>>;
+    files: FilesUploaded[];
 }
 
 export interface ProcessButtonType {
@@ -18,4 +19,5 @@ export interface ResetButtonType {
   files: FilesUploaded[],
   setDownloadStatus: React.Dispatch<React.SetStateAction<string>>;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
+  setFiles: React.Dispatch<React.SetStateAction<FilesUploaded[]>>;
 }

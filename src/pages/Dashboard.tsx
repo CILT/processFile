@@ -24,13 +24,13 @@ const Dashboard: React.FC = () => {
     <Header />
     <MainWrapper>
         <TopRow>
-          <ResetButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} />
+          <ResetButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} />
         </TopRow>
         <MiddleRow>
           <LargeButton>
             <APIKeys />
             <SpacedContainer />
-            <FileUpload setFiles={setFiles} />
+            <FileUpload setFiles={setFiles} files={files} />
           </LargeButton>
           <CentralButton>
             <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus} setFileName={setFileName}/>

@@ -24,12 +24,13 @@ const ResetWrapper = styled.div`
   }
 `;
 
-const ResetButton: React.FC<ResetButtonType> = ({files, setDownloadStatus, setFileName}) => {
+const ResetButton: React.FC<ResetButtonType> = ({files, setDownloadStatus, setFileName, setFiles}) => {
 
   const handleClick = async () => {
     await deleteFiles(files);
     setFileName("");
-    setDownloadStatus('Pendiente de procesamiento')
+    setDownloadStatus('Pendiente de procesamiento');
+    setFiles([]);
   };
 
   return (
