@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
           <LargeButton>
             <APIKeys />
             <SpacedContainer />
-            <FileUpload setFiles={setFiles} files={files} />
+            <FileUpload setFiles={setFiles} />
           </LargeButton>
           <CentralButton>
             <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus} setFileName={setFileName}/>
