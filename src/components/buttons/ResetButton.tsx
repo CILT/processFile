@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReplayIcon from '@mui/icons-material/Replay';
+import { deleteFiles } from '../../services/FileService';
+import { ResetButtonType } from '../../types';
 
 const ResetWrapper = styled.div`
   display: flex;
@@ -22,11 +24,20 @@ const ResetWrapper = styled.div`
   }
 `;
 
-const ResetButton: React.FC = () => (
-  <ResetWrapper onClick={() => alert('Reset clicked')}>
-    <ReplayIcon style={{ color: '#333' }} /> 
-    <span style={{ marginLeft: '8px', color: '#333' }}>Refrescar</span>
-  </ResetWrapper>
-);
+const ResetButton: React.FC<ResetButtonType> = ({files, setDownloadStatus, setFileName}) => {
+
+  const handleClick = async () => {
+    await deleteFiles(files);
+    setFileName("");
+    setDownloadStatus('Pendiente de procesamiento')
+  };
+
+  return (
+    <ResetWrapper onClick={async () => await handleClick()}>
+      <ReplayIcon style={{ color: '#333' }} /> 
+      <span style={{ marginLeft: '8px', color: '#333' }}>Refrescar</span>
+    </ResetWrapper>
+  );
+};
 
 export default ResetButton;

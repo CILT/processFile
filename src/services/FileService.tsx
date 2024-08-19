@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { FilesUploaded } from "../types";
 
 const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -31,3 +32,9 @@ export const downloadFileByName = async (fileName: string) => {
     
     return null
   }
+
+export const deleteFiles = async (files: FilesUploaded[]) => {
+  files.forEach(async file => {
+    await openai.files.del(file.fileId);
+  });
+}

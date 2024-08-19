@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
     <Header />
     <MainWrapper>
         <TopRow>
-          <ResetButton />
+          <ResetButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} />
         </TopRow>
         <MiddleRow>
           <LargeButton>

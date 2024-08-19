@@ -13,3 +13,9 @@ export interface ProcessButtonType {
   setDownloadStatus: React.Dispatch<React.SetStateAction<string>>;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface ResetButtonType {
+  files: FilesUploaded[],
+  setDownloadStatus: React.Dispatch<React.SetStateAction<string>>;
+  setFileName: React.Dispatch<React.SetStateAction<string>>;
+}

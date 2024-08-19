@@ -7,16 +7,18 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true,
 });
 
-export const askChatGPT = async (filesSelected: FilesUploaded[]): Promise<string> => {
+export const processFiles = async (filesSelected: FilesUploaded[]): Promise<string> => {
   const assistantId = process.env.REACT_APP_OPENAI_ASSISTANT_ID ? process.env.REACT_APP_OPENAI_ASSISTANT_ID : "";
   let threadId = process.env.REACT_APP_OPENAI_THREAD_ID ? process.env.REACT_APP_OPENAI_THREAD_ID : "";
   const attachments: any = []
+  let filesTypes = "";
 
   filesSelected.forEach(file => {
       attachments.push({
         file_id: file.fileId,
         tools: [{ type: "code_interpreter" }],
       })
+      filesTypes += file.fileId + "es de tipo " + file.type + " ";
   })
 
   if (threadId === ""){
@@ -28,11 +30,10 @@ export const askChatGPT = async (filesSelected: FilesUploaded[]): Promise<string
     threadId,
     {
       role: "user",
-      content: "Procesame los archivos que adjunte",
+      content: "Procesame los archivos que adjunte. Te dejo el tipo de cada archivo subido, "+ filesTypes,
       attachments: attachments,
     }
   );
 
 return awaitForThredAndAnalyzeQuery(threadId, assistantId, openai);
-
 };

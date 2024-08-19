@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@mui/material';
-import { askChatGPT } from '../../services/ChatGPTService';
+import { processFiles } from '../../services/ChatGPTService';
 import { ProcessButtonType } from '../../types';
 import processFile from '../../assets/images/processFile.png'; 
 import { AlertContext } from '../../utils/context/AlertContext';
@@ -42,7 +42,7 @@ const ProcessButton: React.FC<ProcessButtonType> = ({ filesSelected, setDownload
   const handleClick = async () => {
     try {
       setDownloadStatus('Procesando...')
-      const response = await askChatGPT(filesSelected);
+      const response = await processFiles(filesSelected);
       if (response === "") {
         showAlert('No se pudieron procesar los archivos.', 'error');
         setDownloadStatus('Pendiente de procesamiento');
