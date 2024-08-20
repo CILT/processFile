@@ -22,11 +22,12 @@ const FileTypeText = styled.small`
   color: #24313D;
 `;
 
-const FileUpload: React.FC<FileUploadType> = ({ setFiles }) => {
+const FileUpload: React.FC<FileUploadType> = ({ setFiles, setLoading }) => {
   const [fileCount, setFileCount] = useState<number>(0);
   const { showAlert } = useContext(AlertContext)!;
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
     const files = event.target.files;
     if (files) {
       setFileCount(files.length);
@@ -43,6 +44,7 @@ const FileUpload: React.FC<FileUploadType> = ({ setFiles }) => {
       }
 
       setFiles(filesUploaded);
+      setLoading(false);
       if (allFilesUploaded) {
         showAlert('Todos los archivos fueron subidos correctamente.', 'success');
       } else {

@@ -9,12 +9,14 @@ import OutputAPIKeys from '../components/keys/OutputAPIKeys';
 import Header from '../components/Header';
 import { MainWrapper, TopRow, MiddleRow, LargeButton, SpacedContainer, CentralButton } from '../styles/pages/DashboardStyle';
 import Settings from '../components/Settings';
+import { Box, CircularProgress } from '@mui/material';
 
 const Dashboard: React.FC = () => {
   const [files, setFiles] = useState<FilesUploaded[]>([]);
   const [filesSelected, setFilesSelected] = useState<FilesUploaded[]>([]);
   const [downloadStatus, setDownloadStatus] = useState<string>('Pendiente de procesamiento');
   const [fileName, setFileName] = useState<string>(''); 
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setFilesSelected(files);
   }, [files]);
@@ -23,17 +25,22 @@ const Dashboard: React.FC = () => {
     <>
     <Header />
     <MainWrapper>
+        <Box
+          position="fixed"
+        >
+          {loading ? <CircularProgress /> : null}
+        </Box>
         <TopRow>
-          <ResetButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} />
+          <ResetButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} setLoading={setLoading}/>
         </TopRow>
         <MiddleRow>
           <LargeButton>
             <APIKeys />
             <SpacedContainer />
-            <FileUpload setFiles={setFiles} />
+            <FileUpload setFiles={setFiles} setLoading={setLoading}/>
           </LargeButton>
           <CentralButton>
-            <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus} setFileName={setFileName}/>
+            <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setLoading={setLoading}/>
           </CentralButton>
           <LargeButton>
             <OutputAPIKeys />
