@@ -5,6 +5,7 @@ import { Card } from '../styles/components/Card';
 import styled from 'styled-components';
 import { downloadFileByName } from '../services/FileService';
 import { downloadFile } from '../utils/utils';
+import * as XLSX from 'xlsx';
 
 const StatusText = styled.p`
   margin: 5px 0;
@@ -12,19 +13,35 @@ const StatusText = styled.p`
   color: #24313D;
 `;
 
+
+
 const Download: React.FC<{ downloadStatus: string, fileName: string }> = ({ downloadStatus, fileName }) => {
+
+  const generateExcelFile = (data:any) => {
+    let ws1 = null;
+    let ws2 = null;
+    if (data?.hoja_principal?.length > 0)
+       ws1 = XLSX.utils.json_to_sheet(data.hoja_principal);
+
+    if (data?.seccion_de_errores?.length > 0)
+       ws2 = XLSX.utils.json_to_sheet(data.seccion_de_errores);
+    const wb = XLSX.utils.book_new();
+
+    ws1 && XLSX.utils.book_append_sheet(wb, ws1, 'Hoja Principal');
+    ws2 && XLSX.utils.book_append_sheet(wb, ws2, 'Sección de Errores');
+
+    XLSX.writeFile(wb, 'datos.xlsx');
+  };
+
 
 const handleDownloadClick = async () => {
     console.log("descargar");
 
     try {
-        const response = await downloadFileByName(fileName);
-        if (response && response.ok) {
-            const fileBlob = await response.blob();
-            downloadFile(fileBlob, fileName);
-        } else {
-            console.error('No se pudo obtener el archivo.');
-        }
+      const result = fileName.replace(/^```json\s*/m, '')
+      .replace(/\s*```$/m, ''); 
+      console.log(JSON.parse(result))
+      generateExcelFile(JSON.parse(result));
     } catch (error) {
         console.error('Error al descargar el archivo:', error);
     }

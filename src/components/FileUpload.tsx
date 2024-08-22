@@ -26,24 +26,62 @@ const FileUpload: React.FC<FileUploadType> = ({ setFiles, setLoading }) => {
   const [fileCount, setFileCount] = useState<number>(0);
   const { showAlert } = useContext(AlertContext)!;
 
+  async function getBase64(file: Blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+           const result = reader?.result?.toString().replace('data:image/png;base64,', '');
+        resolve(result)
+      }
+      reader.onerror = reject
+    })
+  }
+
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
     const files = event.target.files;
     if (files) {
       setFileCount(files.length);
-      const filesUploaded = [];
+      let filesUploaded = "";
       let allFilesUploaded = true;
 
       for (let i = 0; i < files.length; i++) {
-        try {
-          const file = await uploadFiles(files[i]);
-          filesUploaded.push(file);
-        } catch (error) {
-          allFilesUploaded = false;
-        }
+        const file = await getBase64(files[i]);
+        
+
+                // Llamar a la Vision API de Google
+                const response = await fetch(
+                  `https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCophJbdYEimwKC_MgWMw9EKjs6rzZ4XH8`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      requests: [
+                        {
+                          image: {
+                            content: file,
+                          },
+                          features: [
+                            {
+                              type: 'DOCUMENT_TEXT_DETECTION',
+                            },
+                          ],
+                        },
+                      ],
+                    }),
+                  }
+                );
+        
+                const data = await response.json();
+                console.log(data.responses[0].fullTextAnnotation.text || 'No text found.');
+                filesUploaded += data.responses[0].fullTextAnnotation.text + " ------ "
       }
 
       setFiles(filesUploaded);
+      
       setLoading(false);
       if (allFilesUploaded) {
         showAlert('Todos los archivos fueron subidos correctamente.', 'success');
@@ -79,3 +117,5 @@ const FileUpload: React.FC<FileUploadType> = ({ setFiles, setLoading }) => {
 };
 
 export default FileUpload;
+
+

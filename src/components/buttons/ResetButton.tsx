@@ -25,15 +25,14 @@ const ResetWrapper = styled.div`
   }
 `;
 
-const ResetButton: React.FC<ResetButtonType> = ({files, setDownloadStatus, setFileName, setFiles, setLoading}) => {
+const ResetButton: React.FC<ResetButtonType> = ({setDownloadStatus, setFileName, setFiles, setLoading}) => {
   const { showAlert } = useContext(AlertContext)!;
 
   const handleClick = async () => {
     setLoading(true);
-    await deleteFiles(files);
     setFileName("");
     setDownloadStatus('Pendiente de procesamiento');
-    setFiles([]);
+    setFiles("");
     setLoading(false);
     showAlert('La aplicación se ha refrescado', 'success');
   };

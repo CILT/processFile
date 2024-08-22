@@ -27,7 +27,7 @@ const StyledButton = styled.button`
 `;
 
 interface SettingsProps {
-  files: FilesUploaded[];
+  files: string;
   filesSelected: FilesUploaded[];
   setFilesSelected: React.Dispatch<React.SetStateAction<FilesUploaded[]>>;
 }
@@ -36,11 +36,11 @@ const Settings: React.FC<SettingsProps> = ({ setFilesSelected, filesSelected, fi
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const handleChecklistChange = (fileId: string) => {
-    setFilesSelected(prev =>
-      prev.some(file => file.fileId === fileId)
-        ? prev.filter(file => file.fileId !== fileId)
-        : [...prev, files.find(file => file.fileId === fileId)!]
-    );
+    // setFilesSelected(prev =>
+    //   prev.some(file => file.fileId === fileId)
+    //     ? prev.filter(file => file.fileId !== fileId)
+    //     : [...prev, files.find(file => file.fileId === fileId)!]
+    // );
   };
 
   const handleSave = () => setPopupVisible(false);
@@ -56,7 +56,7 @@ const Settings: React.FC<SettingsProps> = ({ setFilesSelected, filesSelected, fi
         <Popup
           title="Archivos a procesar"
           onClose={handleSave}
-          checklistItems={files.map(file => ({ id: file.fileId, label: file.fileName }))}
+          // checklistItems={files.map(file => ({ id: file.fileId, label: file.fileName }))}
           selectedItems={filesSelected.map(file => file.fileId)}
           onChecklistChange={handleChecklistChange}
         />

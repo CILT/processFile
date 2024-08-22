@@ -12,14 +12,11 @@ import Settings from '../components/Settings';
 import { Box, CircularProgress } from '@mui/material';
 
 const Dashboard: React.FC = () => {
-  const [files, setFiles] = useState<FilesUploaded[]>([]);
+  const [files, setFiles] = useState<string>("");
   const [filesSelected, setFilesSelected] = useState<FilesUploaded[]>([]);
   const [downloadStatus, setDownloadStatus] = useState<string>('Pendiente de procesamiento');
   const [fileName, setFileName] = useState<string>(''); 
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setFilesSelected(files);
-  }, [files]);
 
   return (
     <>
@@ -31,7 +28,7 @@ const Dashboard: React.FC = () => {
           {loading ? <CircularProgress /> : null}
         </Box>
         <TopRow>
-          <ResetButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} setLoading={setLoading}/>
+          <ResetButton setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} setLoading={setLoading}/>
         </TopRow>
         <MiddleRow>
           <LargeButton>
@@ -40,7 +37,7 @@ const Dashboard: React.FC = () => {
             <FileUpload setFiles={setFiles} setLoading={setLoading}/>
           </LargeButton>
           <CentralButton>
-            <ProcessButton filesSelected={filesSelected} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setLoading={setLoading}/>
+            <ProcessButton files={files} setDownloadStatus={setDownloadStatus} setFileName={setFileName} setLoading={setLoading}/>
           </CentralButton>
           <LargeButton>
             <OutputAPIKeys />
@@ -48,11 +45,11 @@ const Dashboard: React.FC = () => {
             <Download downloadStatus={downloadStatus} fileName={fileName} />
           </LargeButton>
         </MiddleRow>
-        <Settings 
+        {/* <Settings 
           setFilesSelected={setFilesSelected} 
           files={files} 
           filesSelected={filesSelected} 
-        />
+        /> */}
       </MainWrapper>
     </>
   );
