@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
           {loading ? <CircularProgress /> : null}
         </Box>
         <TopRow>
-          <ResetButton setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} setLoading={setLoading}/>
+          <ResetButton setDownloadStatus={setDownloadStatus} setFileName={setFileName} setFiles={setFiles} setLoading={setLoading} setPrompt={setPrompt}/>
         </TopRow>
         <MiddleRow>
           <LargeButton>

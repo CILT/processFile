@@ -42,17 +42,17 @@ const Input = styled.input`
 const Button = styled.button`
   width: calc(100% - 1.5rem);
   padding: 0.75rem;
-  background-color: #204e5b; /* Color de fondo del botón basado en la paleta */
+  background-color: #204e5b;
   border: none;
   border-radius: 8px;
-  color: #e0f4f4; /* Color del texto del botón, blanco suave que contrasta */
+  color: #e0f4f4;
   font-size: 1.1rem;
   cursor: pointer;
   margin-top: 1rem;
   box-sizing: border-box;
 
   &:hover {
-    background-color: #123a47; /* Color de fondo en hover, un tono más oscuro */
+    background-color: #123a47;
   }
 `;
 

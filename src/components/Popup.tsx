@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 
 interface PopupProps {
   title: string;
@@ -42,7 +42,6 @@ const Popup: React.FC<PopupProps> = ({
           value={text}
           onChange={handleInputChange}
           fullWidth
-          sx={{ minHeight: '200px' }}
           rows={6}
           multiline 
         />
@@ -61,7 +60,7 @@ const PopupOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 `;
 
@@ -70,61 +69,73 @@ const PopupContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  width: 400px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 24px;
+  width: 380px;
   max-width: 90%;
   z-index: 1001;
 `;
 
 const PopupHeader = styled.h2`
-  color: #24313D;
+  color: #123a47;
+  font-size: 1.4rem;
   margin-bottom: 16px;
-`;
-
-const EmptyMessage = styled.p`
-  color: #24313D;
-  font-size: 14px;
-  margin-top: 16px;
+  text-align: center;
+  font-weight: 600;
 `;
 
 const PopupButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+  justify-content: space-between;
+  margin-top: 24px;
 `;
 
-const CloseButton = styled(Button)`
-  color: #24313D;
+const ButtonBase = styled.button`
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: #ffffff;
+  border: none;
+  outline: none;
+`;
+
+const CloseButton = styled(ButtonBase)`
+  background-color: #297f8f;
   margin-right: 8px;
+
+  &:hover {
+    background-color: #24707e;
+  }
 `;
 
-const SaveButton = styled(Button)`
-  color: #24313D;
-  background: #e0e0e0;
+const SaveButton = styled(ButtonBase)`
+  background-color: #204e5b;
+
   &:hover {
-    background: #d0d0d0;
+    background-color: #1b434e;
   }
 `;
 
 const StyledTextField = styled(TextField)`
   width: 100%;
-  margin-bottom: 16px;
-  
   .MuiOutlinedInput-root {
     &.Mui-focused fieldset {
-      border-color: #24313D;
+      border-color: #204e5b;
     }
   }
 
   .MuiFormLabel-root {
-    color: #24313D;
+    color: #777;
   }
 
   .MuiInputBase-input {
-    color: #24313D;
+    color: #333;
   }
 `;
 

@@ -4,6 +4,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 // import { deleteFiles } from '../../services/FileService';
 import { ResetButtonType } from '../../types';
 import { AlertContext } from '../../utils/context/AlertContext';
+import { defaultPrompt } from '../../utils/utils';
 
 const ResetWrapper = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const ResetWrapper = styled.div`
   }
 `;
 
-const ResetButton: React.FC<ResetButtonType> = ({setDownloadStatus, setFileName, setFiles, setLoading}) => {
+const ResetButton: React.FC<ResetButtonType> = ({setDownloadStatus, setFileName, setFiles, setLoading, setPrompt}) => {
   const { showAlert } = useContext(AlertContext)!;
 
   const handleClick = async () => {
@@ -33,6 +34,7 @@ const ResetButton: React.FC<ResetButtonType> = ({setDownloadStatus, setFileName,
     setFileName("");
     setDownloadStatus('Pendiente de procesamiento');
     setFiles("");
+    setPrompt(defaultPrompt)
     setLoading(false);
     showAlert('La aplicación se ha refrescado', 'success');
   };

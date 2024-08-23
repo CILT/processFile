@@ -23,4 +23,5 @@ export interface ResetButtonType {
   setFileName: React.Dispatch<React.SetStateAction<string>>;
   setFiles: React.Dispatch<React.SetStateAction<string>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setPrompt: React.Dispatch<React.SetStateAction<string>>;
 }
