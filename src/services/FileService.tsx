@@ -58,8 +58,8 @@ export const downloadFileByName = async (fileName: string) => {
     return null
   }
 
-export const deleteFiles = async (files: FilesUploaded[]) => {
-  files.forEach(async file => {
-    await openai.files.del(file.fileId);
-  });
-}
+// export const deleteFiles = async (files: FilesUploaded[]) => {
+//   files.forEach(async file => {
+//     await openai.files.del(file.fileId);
+//   });
+// }

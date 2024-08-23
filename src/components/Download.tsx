@@ -20,8 +20,8 @@ const Download: React.FC<{ downloadStatus: string, fileName: string }> = ({ down
   const generateExcelFile = (data:any) => {
     let ws1 = null;
     let ws2 = null;
-    if (data?.hoja_principal?.length > 0)
-       ws1 = XLSX.utils.json_to_sheet(data.hoja_principal);
+    if (data?.length > 0)
+       ws1 = XLSX.utils.json_to_sheet(data);
 
     if (data?.seccion_de_errores?.length > 0)
        ws2 = XLSX.utils.json_to_sheet(data.seccion_de_errores);

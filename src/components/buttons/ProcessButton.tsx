@@ -36,14 +36,14 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
-const ProcessButton: React.FC<ProcessButtonType> = ({ files, setDownloadStatus, setFileName, setLoading }) => {
+const ProcessButton: React.FC<ProcessButtonType> = ({ files, setDownloadStatus, setFileName, setLoading, prompt }) => {
   const { showAlert } = useContext(AlertContext)!;
 
   const handleClick = async () => {
     setLoading(true);
     try {
       setDownloadStatus('Procesando...')
-      const response = await processFiles(files);
+      const response = await processFiles(files, prompt);
       setLoading(false);
       if (response === "") {
         showAlert('No se pudieron procesar los archivos.', 'error');

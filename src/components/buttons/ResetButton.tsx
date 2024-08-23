@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import ReplayIcon from '@mui/icons-material/Replay';
-import { deleteFiles } from '../../services/FileService';
+// import { deleteFiles } from '../../services/FileService';
 import { ResetButtonType } from '../../types';
 import { AlertContext } from '../../utils/context/AlertContext';
 

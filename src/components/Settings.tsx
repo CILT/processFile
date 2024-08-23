@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Popup from './Popup';
 import { FilesUploaded } from '../types';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const StyledButton = styled.button`
   margin-top: 10vh;
@@ -27,38 +28,24 @@ const StyledButton = styled.button`
 `;
 
 interface SettingsProps {
-  files: string;
-  filesSelected: FilesUploaded[];
-  setFilesSelected: React.Dispatch<React.SetStateAction<FilesUploaded[]>>;
+  setPrompt: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Settings: React.FC<SettingsProps> = ({ setFilesSelected, filesSelected, files }) => {
+const Settings: React.FC<SettingsProps> = ({ setPrompt }) => {
   const [isPopupVisible, setPopupVisible] = useState(false);
-
-  const handleChecklistChange = (fileId: string) => {
-    // setFilesSelected(prev =>
-    //   prev.some(file => file.fileId === fileId)
-    //     ? prev.filter(file => file.fileId !== fileId)
-    //     : [...prev, files.find(file => file.fileId === fileId)!]
-    // );
-  };
-
-  const handleSave = () => setPopupVisible(false);
 
   return (
     <>
       <StyledButton onClick={() => setPopupVisible(true)}>
-        <FolderOpenIcon style={{ marginRight: '2vh', color: '#333' }} />
-        <span>Seleccionar Archivos</span>
+        <SettingsIcon style={{ marginRight: '2vh', color: '#333' }} />
+        <span>Ajustar prompt</span>
       </StyledButton>
 
       {isPopupVisible && (
         <Popup
-          title="Archivos a procesar"
-          onClose={handleSave}
-          // checklistItems={files.map(file => ({ id: file.fileId, label: file.fileName }))}
-          selectedItems={filesSelected.map(file => file.fileId)}
-          onChecklistChange={handleChecklistChange}
+          title="Ajustar prompt"
+          onClose={() =>setPopupVisible(false)}
+          onSave={(e) => {setPrompt(e); setPopupVisible(false);}}
         />
       )}
     </>
