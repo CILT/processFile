@@ -8,6 +8,7 @@ interface PopupProps {
   onSave: (value: string) => void;
   inputValue?: string;
   onInputChange?: (value: string) => void;
+  prompt: string;
 }
 
 const Popup: React.FC<PopupProps> = ({
@@ -16,8 +17,9 @@ const Popup: React.FC<PopupProps> = ({
   onSave,
   inputValue = '',
   onInputChange,
+  prompt
 }) => {
-  const [text, setText] = useState(inputValue);
+  const [text, setText] = useState(prompt);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -39,6 +41,10 @@ const Popup: React.FC<PopupProps> = ({
           variant="outlined"
           value={text}
           onChange={handleInputChange}
+          fullWidth
+          sx={{ minHeight: '200px' }}
+          rows={6}
+          multiline 
         />
         <PopupButtonWrapper>
           <CloseButton onClick={onClose}>Cerrar</CloseButton>

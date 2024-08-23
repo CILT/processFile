@@ -29,9 +29,10 @@ const StyledButton = styled.button`
 
 interface SettingsProps {
   setPrompt: React.Dispatch<React.SetStateAction<string>>;
+  prompt: string;
 }
 
-const Settings: React.FC<SettingsProps> = ({ setPrompt }) => {
+const Settings: React.FC<SettingsProps> = ({ setPrompt, prompt }) => {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   return (
@@ -46,6 +47,7 @@ const Settings: React.FC<SettingsProps> = ({ setPrompt }) => {
           title="Ajustar prompt"
           onClose={() =>setPopupVisible(false)}
           onSave={(e) => {setPrompt(e); setPopupVisible(false);}}
+          prompt= {prompt}
         />
       )}
     </>

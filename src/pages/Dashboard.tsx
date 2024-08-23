@@ -49,6 +49,7 @@ const Dashboard: React.FC = () => {
         </MiddleRow>
         <Settings 
           setPrompt={setPrompt}
+          prompt={prompt}
         />
       </MainWrapper>
     </>
