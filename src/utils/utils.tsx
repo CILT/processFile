@@ -63,45 +63,9 @@ export async function analyzeAndQuery(text: string): Promise<string> {
   return "";
 }
 
-export const defaultPrompt = `Sigue los siguientes pasos y procesame las iamgenes adjuntas. Recuerda que me debes devolver un json
-
-Instrucciones para Procesamiento de Documentos:
-Extracción y Clasificación de Documentos:
-Extrae el texto de la imagen y organiza la información en un archivo JSON.
-El documento puede contener múltiples tipos de documentos, como órdenes de pago, comprobantes de transferencia y certificados de retención.
-Tu tarea es clasificar cada tipo de documento identificado en las categorías mencionadas (órdenes de pago, comprobantes de transferencia, certificados de retención) y procesarlos por separado, incluso si están dentro del mismo archivo. Por ejemplo un archivo puede ser una orden de pago pero contener comprobante de pago, esos deben ser registros aparte en el json, en ese caso el saldo_a_pagar en los comprobantes de pago debe ser siempre 0
-Estructura del JSON:
-La información extraída debe consolidarse en un archivo JSON utilizando las siguientes claves:
-tipo_de_documento
-fecha_emision_factura
-fecha_retencion
-fecha_comprobante_pago
-razon_social
-CUIT
-ID_factura
-monto_factura
-ID_orden_pago
-monto_orden_pago
-ID_comprobante_pago
-monto_comprobante_pago
-ID_certificacion_retencion
-monto_certificado_retencion
-total_recibido
-saldo_a_pagar
-Estas claves deben estar siempre presentes en el JSON, incluso si algún valor es nulo.
-Cálculo de Campos Financieros:
-total_recibido: Corresponde al monto_comprobante_pago.
-saldo_a_pagar: Calculado como la diferencia entre monto_orden_pago y total_recibido.
-Si monto_orden_pago es nulo, establece saldo_a_pagar como 0.
-Si total_recibido es nulo, establece saldo_a_pagar como monto_orden_pago.
-Es crucial que estos cálculos se realicen con precisión.
-Si el archivo es de tipo orden de pago la fecha tiene que ir en el campo fecha_emision_factura
-Si el archivo es de tipo comprobante de pago la fecha tiene que ir en el campo fecha_comprobante_pago
-Si el archivo es de tipo certificado de retencion la fecha tiene que ir en fecha_retencion
-
-
-
-Consideraciones para Órdenes de Pago con Comprobantes:
-Si una orden de pago incluye comprobantes de pago, estos no deben tener un valor en monto_orden_pago, pero deben mantener el ID_orden_pago.
-Para fines de cálculo, el valor de monto_orden_pago debe considerarse 0 en estos casos.
+export const defaultPrompt = `
+usando todos esos jsons de facturas ordenes, comprobantes y retenciones generar un json con toda la informacion de un xls tabla la cual voy a generar con ese json, esto tiene como objetivo relacionar las facturas con sus ordenes pagos y certificados asociados mostrando en una ultima columna el saldo diferencia entre lo facturado y la suma de retencion y comprobantes para asi visualziar su conciliacion.
+Es importante que me respondas solo con el json. El formato seria un array de json, cada json una linea del excel
 `;
+
+export const promptToConvertImagesToJson = "Convertime estas imagenes png en texto con formato json"

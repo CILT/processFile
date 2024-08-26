@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import { FilesUploaded } from '../types';
-import { awaitForThredAndAnalyzeQuery, extractName } from "../utils/utils";
+import { awaitForThredAndAnalyzeQuery, defaultPrompt, extractName, promptToConvertImagesToJson } from "../utils/utils";
 import { GoogleGenerativeAI }  from "@google/generative-ai";
 
 const openai = new OpenAI({
@@ -13,7 +13,7 @@ export const processFiles = async (files: any[], prompt: string): Promise<string
   const genAI = new GoogleGenerativeAI("AIzaSyCophJbdYEimwKC_MgWMw9EKjs6rzZ4XH8");
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  let input: any[] = [prompt]
+  let input: any[] = [promptToConvertImagesToJson]
   for (let i = 0; i < files.length; i++) {
     const image = [{
       inlineData: {
@@ -24,11 +24,20 @@ export const processFiles = async (files: any[], prompt: string): Promise<string
     input.push(image);
   }
 const result = await model.generateContent(input);
-let response = "";
+let documents = "";
 if (result?.response?.candidates && result?.response?.candidates[0].content.parts[0].text){
-  response = result?.response?.candidates[0].content.parts[0].text;
+  documents = result?.response?.candidates[0].content.parts[0].text;
   console.log(result?.response?.candidates[0].content.parts[0].text);
 }
 
-return response;
+const completion = await openai.chat.completions.create({
+  messages: [
+      {"role": "user", "content": prompt + " " + documents },],
+  model: "gpt-4o",
+});
+console.log("pepeeee");
+console.log(completion);
+console.log(completion.choices[0].message.content);
+const finalResult = completion.choices[0].message.content;
+return finalResult ? finalResult : "" ;
 };
