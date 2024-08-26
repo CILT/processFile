@@ -64,8 +64,7 @@ export async function analyzeAndQuery(text: string): Promise<string> {
 }
 
 export const defaultPrompt = `
-usando todos esos jsons de facturas ordenes, comprobantes y retenciones generar un json con toda la informacion de un xls tabla la cual voy a generar con ese json, esto tiene como objetivo relacionar las facturas con sus ordenes pagos y certificados asociados mostrando en una ultima columna el saldo diferencia entre lo facturado y la suma de retencion y comprobantes para asi visualziar su conciliacion.
-Es importante que me respondas solo con el json. El formato seria un array de json, cada json una linea del excel
-`;
+usando todos esos jsons de facturas ordenes, comprobantes y retenciones generar un json con toda la informacion de un xls tabla que luego voy a generar la cual tiene como objetivo relacionar las facturas con sus ordenes pagos y certificados asociados mostrando en una ultima columna el saldo diferencia entre lo facturado y la suma de retencion y comprobantes para asi visualziar su conciliacion
+Es importante que solo me respondas con el json y que cada json de entrada procesado tenga las mismas columnas entre si en el json de salida`;
 
 export const promptToConvertImagesToJson = "Convertime estas imagenes png en texto con formato json"
