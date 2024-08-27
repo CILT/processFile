@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IconButton } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Card } from '../styles/components/Card';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { downloadFileByName } from '../services/FileService';
 import { downloadFile } from '../utils/utils';
 import * as XLSX from 'xlsx';
+import { AlertContext } from '../utils/context/AlertContext';
 
 const StatusText = styled.p`
   margin: 5px 0;
@@ -16,7 +17,7 @@ const StatusText = styled.p`
 
 
 const Download: React.FC<{ downloadStatus: string, fileName: string }> = ({ downloadStatus, fileName }) => {
-
+  const { showAlert } = useContext(AlertContext)!;
   const generateExcelFile = (data:any) => {
     let ws1 = null;
     let ws2 = null;
@@ -40,10 +41,11 @@ const handleDownloadClick = async () => {
     try {
       const result = fileName.replace(/^```json\s*/m, '')
       .replace(/\s*```$/m, ''); 
-      console.log(JSON.parse(result))
       generateExcelFile(JSON.parse(result));
+      showAlert('Excel descargado correctamente', 'success');
     } catch (error) {
-        console.error('Error al descargar el archivo:', error);
+      showAlert('Error al descargar, excel con formato invalido.', 'error');
+      console.error('Error al descargar el archivo:', error);
     }
 };
 

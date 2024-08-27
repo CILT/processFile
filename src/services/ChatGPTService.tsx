@@ -27,6 +27,7 @@ const result = await model.generateContent(input);
 let documents = "";
 if (result?.response?.candidates && result?.response?.candidates[0].content.parts[0].text){
   documents = result?.response?.candidates[0].content.parts[0].text;
+  console.log("Documentos de entrada en formato json:");
   console.log(result?.response?.candidates[0].content.parts[0].text);
 }
 
@@ -35,8 +36,7 @@ const completion = await openai.chat.completions.create({
       {"role": "user", "content": prompt + " " + documents },],
   model: "gpt-4o",
 });
-console.log("pepeeee");
-console.log(completion);
+console.log("Respuesta de chatGPT:");
 console.log(completion.choices[0].message.content);
 const finalResult = completion.choices[0].message.content;
 return finalResult ? finalResult : "" ;
