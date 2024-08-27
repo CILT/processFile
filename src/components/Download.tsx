@@ -40,8 +40,10 @@ const handleDownloadClick = async () => {
 
     try {
       const result = fileName.replace(/^```json\s*/m, '')
-      .replace(/\s*```$/m, ''); 
-      generateExcelFile(JSON.parse(result));
+      .replace(/\s*```$/m, '');
+      const json = JSON.parse(result);
+      const jsonArray = Array.isArray(json) ? json : [json];
+      generateExcelFile(jsonArray);
       showAlert('Excel descargado correctamente', 'success');
     } catch (error) {
       showAlert('Error al descargar, excel con formato invalido.', 'error');

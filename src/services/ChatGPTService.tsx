@@ -17,8 +17,8 @@ export const processFiles = async (files: any[], prompt: string): Promise<string
   for (let i = 0; i < files.length; i++) {
     const image = [{
       inlineData: {
-        data: files[i],
-        mimeType: "image/png",
+        data: files[i].file,
+        mimeType: files[i].type,
       },
     }];
     input.push(image);
@@ -38,6 +38,20 @@ const completion = await openai.chat.completions.create({
 });
 console.log("Respuesta de chatGPT:");
 console.log(completion.choices[0].message.content);
+const jsonResult = completion.choices[0].message.content;
+
+const promptToValidateJson = `por favor verifica si el json es correcto. en caso de que si retornarlo tal como esta en caso contrario ajustarlo correctamente. Si el mismo tiene operaciones a realizar (ejemplo 2 + 5), realizalas. 
+Es importante que solo me respondas con el json final
+Aqui te dejo el json a validar:
+
+`
+const completionVerify = await openai.chat.completions.create({
+  messages: [
+      {"role": "user", "content": promptToValidateJson + " \n Aqui tienes los jsons de entrada: " + jsonResult },],
+  model: "gpt-4o",
+});
+
 const finalResult = completion.choices[0].message.content;
+
 return finalResult ? finalResult : "" ;
 };

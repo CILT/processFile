@@ -29,8 +29,9 @@ async function getBase64(file: Blob) {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => {
-         const result = reader?.result?.toString().replace('data:image/png;base64,', '');
-      resolve(result)
+      const result = reader?.result?.toString();
+      const base64Data = result?.split(',')[1];
+      resolve(base64Data)
     }
     reader.onerror = reject
   })
@@ -52,7 +53,7 @@ const FileUpload: React.FC<FileUploadType> = ({ setFiles, setLoading }) => {
       for (let i = 0; i < files.length; i++) {
         try {
           const file = await getBase64(files[i]);
-          filesUploaded.push(file);
+          filesUploaded.push({file, type: files[i].type});
         } catch (error) {
           allFilesUploaded = false;
         }
