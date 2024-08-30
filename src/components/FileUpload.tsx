@@ -7,6 +7,7 @@ import { Card } from '../styles/components/Card';
 import styled from 'styled-components';
 import { AlertContext } from '../utils/context/AlertContext';
 import { uploadFiles } from '../services/FileService';
+import { filesToJson } from '../services/P360';
 
 const HiddenInput = styled.input`
   display: none;
@@ -58,8 +59,22 @@ const FileUpload: React.FC<FileUploadType> = ({ setFiles, setLoading }) => {
           allFilesUploaded = false;
         }
       }
+      let allDocumentsJson = []
 
-      setFiles(filesUploaded);
+      const filesPerBatch = 1;
+      let batch:any = [];
+      console.log("Documentos de entrada en formato json:");
+      for (let index = 0; index < filesUploaded.length; index++) {
+        batch.push(filesUploaded[index]);
+      
+        if (batch.length === filesPerBatch || index === filesUploaded.length - 1) {
+          const response = await filesToJson(batch);
+          allDocumentsJson.push(response);
+          batch = [];
+        }
+      }
+
+      setFiles(allDocumentsJson);
       setLoading(false);
       if (allFilesUploaded) {
         showAlert('Todos los archivos fueron subidos correctamente.', 'success');

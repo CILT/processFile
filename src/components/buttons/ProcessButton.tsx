@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IconButton } from '@mui/material';
-import { processFiles } from '../../services/ChatGPTService';
+import { processFiles } from '../../services/P360';
 import { ProcessButtonType } from '../../types';
 import processFile from '../../assets/images/processFile.png'; 
 import { AlertContext } from '../../utils/context/AlertContext';

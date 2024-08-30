@@ -64,7 +64,8 @@ export async function analyzeAndQuery(text: string): Promise<string> {
 }
 
 export const defaultPrompt = `
-usando todos esos jsons de facturas ordenes, comprobantes y retenciones generar un json con toda la informacion de un xls tabla que luego voy a generar la cual tiene como objetivo relacionar las facturas con sus ordenes pagos y certificados asociados mostrando en una ultima columna el saldo diferencia entre lo facturado y la suma de retencion y comprobantes para asi visualziar su conciliacion
-Es importante que solo me respondas con el json y que cada json de entrada procesado tenga las mismas columnas entre si en el json de salida. Cada key del json va a ser una columna y el value de esa key el valor de esa celda en excel`;
 
-export const promptToConvertImagesToJson = "Convertime estas imagenes png en texto con formato json"
+usando todos estos jsons de facturas ordenes, comprobantes y retenciones generar un json con toda la informacion de un xls tabla que luego voy a generar la cual tiene como objetivo relacionar las facturas con sus ordenes pagos y certificados asociados mostrando en una ultima columna el saldo diferencia entre lo facturado y la suma de retencion y comprobantes para asi visualziar su conciliacion
+Es importante que solo me respondas con el json de salida en formato tabla, el mismo debe contener la informacion procesada de los json de entrada. No debo tener keys principales en los jsons de salida`;
+
+export const promptToConvertImagesToJson = "Convertime estas archivos en formato json bien estructurado en keys/values. Es importante responderme solo con el json y que proceses todos los archivos, tanto pdfs, png y jpeg"

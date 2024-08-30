@@ -8,8 +8,7 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true,
 });
 
-export const processFiles = async (files: any[], prompt: string): Promise<string> => {
-  const apiKey = "";
+export const filesToJson = async (files: any[]) => {
   const genAI = new GoogleGenerativeAI("AIzaSyCophJbdYEimwKC_MgWMw9EKjs6rzZ4XH8");
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
@@ -27,16 +26,26 @@ const result = await model.generateContent(input);
 let documents = "";
 if (result?.response?.candidates && result?.response?.candidates[0].content.parts[0].text){
   documents = result?.response?.candidates[0].content.parts[0].text;
-  console.log("Documentos de entrada en formato json:");
   console.log(result?.response?.candidates[0].content.parts[0].text);
 }
+  return documents;
+}
 
+export const processFiles = async (files: any, prompt: string): Promise<string> => {
+  const apiKey = "";
+  console.log(files);
+  let jsons = ""
+  for (let index = 0; index < files.length; index++) {
+    const element = files[index];
+    jsons += files[index] +", "
+  } 
+  console.log(jsons);
 const completion = await openai.chat.completions.create({
   messages: [
-      {"role": "user", "content": prompt + " " + documents },],
+      {"role": "user", "content": prompt + " " + jsons },],
   model: "gpt-4o",
 });
-console.log("Respuesta de chatGPT:");
+console.log("Respuesta del proceso de conciliacion:");
 console.log(completion.choices[0].message.content);
 const jsonResult = completion.choices[0].message.content;
 
