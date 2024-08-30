@@ -64,8 +64,14 @@ export async function analyzeAndQuery(text: string): Promise<string> {
 }
 
 export const defaultPrompt = `
+Conciliar cada factura con el monto de la orden de pago y la retencion realizada
 
-usando todos estos jsons de facturas ordenes, comprobantes y retenciones generar un json con toda la informacion de un xls tabla que luego voy a generar la cual tiene como objetivo relacionar las facturas con sus ordenes pagos y certificados asociados mostrando en una ultima columna el saldo diferencia entre lo facturado y la suma de retencion y comprobantes para asi visualziar su conciliacion
-Es importante que solo me respondas con el json de salida en formato tabla, el mismo debe contener la informacion procesada de los json de entrada. No debo tener keys principales en los jsons de salida`;
+La conciliacion es el calculo: total de la factura, menos la orden de pago, menos la retencion, y la conciliacion es esa diferencia.
+
+Solo hay una retencion por documento
+
+Devolver solo un json que me genere una tabla en XLS con los resultados de cada factura y su conciliacion usando los datos como keys para la tabla y la informacion en cada una de las columnas en cada fila para cada factura.
+NO AGREGAR NINGUN CHAT NI ACLARACION DE RESULTADO SOLO JSON
+REVISAR QUE EL FORMATO DEL JSON SEA CORRECTO ANTES DE ENVIAR REVISAR LLAVES Y ESPACIOS`;
 
 export const promptToConvertImagesToJson = "Convertime estas archivos en formato json bien estructurado en keys/values. Es importante responderme solo con el json y que proceses todos los archivos, tanto pdfs, png y jpeg"
