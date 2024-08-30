@@ -72,6 +72,7 @@ Solo hay una retencion por documento
 
 Devolver solo un json que me genere una tabla en XLS con los resultados de cada factura y su conciliacion usando los datos como keys para la tabla y la informacion en cada una de las columnas en cada fila para cada factura.
 NO AGREGAR NINGUN CHAT NI ACLARACION DE RESULTADO SOLO JSON
+EL MISMO NO DEBE CONTENER KEYS PRINCIPALES SOLO LOS VALORES
 REVISAR QUE EL FORMATO DEL JSON SEA CORRECTO ANTES DE ENVIAR REVISAR LLAVES Y ESPACIOS`;
 
 export const promptToConvertImagesToJson = "Convertime estas archivos en formato json bien estructurado en keys/values. Es importante responderme solo con el json y que proceses todos los archivos, tanto pdfs, png y jpeg"

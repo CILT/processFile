@@ -32,14 +32,11 @@ if (result?.response?.candidates && result?.response?.candidates[0].content.part
 }
 
 export const processFiles = async (files: any, prompt: string): Promise<string> => {
-  const apiKey = "";
-  console.log(files);
   let jsons = ""
   for (let index = 0; index < files.length; index++) {
     const element = files[index];
     jsons += files[index] +", "
   } 
-  console.log(jsons);
 const completion = await openai.chat.completions.create({
   messages: [
       {"role": "user", "content": prompt + " " + jsons },],
