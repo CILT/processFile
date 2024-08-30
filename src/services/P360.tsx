@@ -1,6 +1,5 @@
 import OpenAI from "openai";
-import { FilesUploaded } from '../types';
-import { awaitForThredAndAnalyzeQuery, defaultPrompt, extractName, promptToConvertImagesToJson } from "../utils/utils";
+import { promptToConvertImagesToJson } from "../utils/utils";
 import { GoogleGenerativeAI }  from "@google/generative-ai";
 
 const openai = new OpenAI({
